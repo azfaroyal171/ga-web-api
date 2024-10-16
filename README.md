@@ -1,6 +1,6 @@
-# ts-kit
+# GA Web API
 
-> Common boilerplate for TypeScript projects
+> trigger github action from web api
 
 ## Setup
 
