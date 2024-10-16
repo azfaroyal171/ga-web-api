@@ -11,7 +11,9 @@
     "dev": "nodemon dist/index.js",
     "build": "tsc --project tsconfig.json",
     "test": "jest --runInBand --forceExit",
-    "start": "concurrently -n  watch,node \"npm run watch\" \"npm run dev\""
+    "start": "concurrently -n  watch,node \"npm run watch\" \"npm run dev\"",
+    "run:hello-world-locally": "node --env-file=.env src/actions/hello-world.ts",
+    "run:hello-world": "node src/actions/hello-world.ts"
   },
   "dependencies": {
     "express": "^4.21.1",
