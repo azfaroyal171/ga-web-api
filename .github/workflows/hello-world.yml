@@ -24,3 +24,5 @@ jobs:
         run: npm i
       - name: Run hello world script
         run: node run run:hello-world
+        env:
+          INPUT: ${{ github.event.inputs.INPUT }}
