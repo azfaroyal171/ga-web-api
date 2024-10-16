@@ -8,7 +8,7 @@
   "scripts": {
     "setup": "cp src/config/.env.example .env",
     "watch": "tsc --watch",
-    "dev": "nodemon dist/index.js",
+    "dev": "nodemon dist/src/index.js",
     "build": "tsc --project tsconfig.json",
     "test": "jest --runInBand --forceExit",
     "start": "concurrently -n  watch,node \"npm run watch\" \"npm run dev\"",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "express": "^4.21.1",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.7.0",
     "path": "^0.12.7",
     "dotenv": "^16.4.5",
     "prompt-sync": "^4.2.0"
