@@ -1,0 +1,26 @@
+name: hello-world
+on:
+  workflow_dispatch:
+    inputs:
+      INPUT:
+        type: string
+        required: true
+
+env:
+  NODE_VERSION: '18.16.1'
+  GITHUB_WORKFLOW_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm i
+      - name: Run hello world script
+        run: node run run:hello-world
