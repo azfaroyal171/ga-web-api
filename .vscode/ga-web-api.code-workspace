@@ -5,6 +5,11 @@
     }
   ],
   "settings": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    },
     "gitmoji.onlyUseCustomEmoji": true,
     "gitmoji.addCustomEmoji": [
       {
