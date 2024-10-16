@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "gitmoji.onlyUseCustomEmoji": true,
+    "gitmoji.addCustomEmoji": [
+      {
+        "description": "Feature",
+        "emoji": "✨ feature: "
+      },
+      {
+        "description": "Bug",
+        "emoji": "🐞 fix: "
+      },
+      {
+        "description": "Test",
+        "emoji": "🤖 test: "
+      },
+      {
+        "description": "Docs",
+        "emoji": "📚 docs: "
+      },
+    ],
+    "typescript.enablePromptUseWorkspaceTsdk": true
+  }
+}
