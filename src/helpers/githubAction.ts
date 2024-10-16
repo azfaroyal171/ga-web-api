@@ -1,32 +1,50 @@
 import fetch from 'node-fetch';
 
-const REPO_OWNER = process.env.REPO_OWNER;
-const REPO_NAME = process.env.REPO_NAME;
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_ACTION_ENDPOINT = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows`;
-
-const generateUrl = (workflowId: string) => {
-  return `${GITHUB_ACTION_ENDPOINT}/${workflowId}/dispatches`;
+const generateUrl = ({
+  workflowId,
+  repoOwner,
+  repoName,
+}: {
+  workflowId: string;
+  repoOwner: string;
+  repoName: string;
+}) => {
+  return `https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowId}/dispatches`;
 };
 
 type Props = {
   workflowId: string;
-  token: string;
   inputs?: Record<string, string>;
   ref?: string;
+  repoOwner: string;
+  repoName: string;
+  token: string;
 };
 
-export const trigger = async ({workflowId, inputs, ref = 'main'}: Props) => {
-  await fetch(generateUrl(workflowId), {
+export const trigger = async ({
+  workflowId,
+  repoOwner,
+  repoName,
+  token,
+  inputs,
+  ref = 'main',
+}: Props) => {
+  const res = await fetch(generateUrl({workflowId, repoOwner, repoName}), {
     method: 'POST',
     body: JSON.stringify({
       ref,
-      ...(inputs ? inputs : {}),
+      ...(inputs ? {inputs} : {}),
     }),
     headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json"',
       'X-GitHub-Api-Version': '2022-11-28',
     },
   });
+
+  if (res.status >= 400 && res.status <= 599) {
+    console.log(await res.json());
+
+    throw new Error('Failed to send email');
+  }
 };

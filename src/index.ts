@@ -13,21 +13,26 @@ app.get('/', (_, res) => {
 });
 
 app.post('/trigger', async (req: Request, res: Response) => {
-  const body = req.body;
-  const workflowId: string = body.workflowId.toString();
-  const inputs: Record<string, string> = JSON.parse(body.inputs);
+  const repoOwner = process.env.REPO_OWNER;
+  const repoName = process.env.REPO_NAME;
+  const token = process.env.GITHUB_TOKEN;
 
-  if (!workflowId || !inputs || !process.env.GITHUB_TOKEN) {
+  const body = req.body;
+
+  if (!body || !repoOwner || !repoName || !token) {
     res.status(400).send('Invalid request');
     return;
   }
 
   try {
     await trigger({
-      workflowId,
-      inputs,
-      token: process.env.GITHUB_TOKEN,
+      workflowId: body.workflowId,
+      inputs: body.inputs,
+      repoOwner,
+      repoName,
+      token,
     });
+
     res.send('Github Action triggered');
   } catch (error) {
     res.status(500).send('Error triggering Github Action');
