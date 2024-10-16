@@ -23,6 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Run hello world script
-        run: node run run:hello-world
+        run: npm run run:hello-world
         env:
           INPUT: ${{ github.event.inputs.INPUT }}
